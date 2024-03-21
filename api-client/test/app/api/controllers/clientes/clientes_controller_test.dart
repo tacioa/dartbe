@@ -1,6 +1,8 @@
 import 'package:api_client/app/api/api.dart';
 import 'package:test/test.dart';
 
+import '../../mock.dart';
+
 /// Controllers
 ///
 /// route: /clientes => clientesController
@@ -14,9 +16,13 @@ import 'package:test/test.dart';
 
 void main() {
   late ClientesController controller;
+  late MockGetClientesUseCase mockGetClientesUseCase;
 
   setUpAll(() {
-    controller = ClientesController();
+    mockGetClientesUseCase = MockGetClientesUseCase();
+    controller = ClientesController(
+      getClientesUseCase: mockGetClientesUseCase,
+    );
   });
 
   group('ClientesControllers', () {

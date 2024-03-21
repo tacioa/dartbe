@@ -1,18 +1,17 @@
 part of api;
 
-class ResponseHandler {
+class ResponseHandler<T> {
   final StatusHandler status;
-  final Object body;
+  final T? body;
 
-  ResponseHandler({required this.status, required this.body});
+  ResponseHandler({required this.status, this.body});
 }
 
 enum StatusHandler {
   ok,
+  internalServerError,
 }
 
 abstract class Handler {
   Future<ResponseHandler> call();
 }
-
-
