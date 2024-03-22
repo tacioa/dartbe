@@ -12,6 +12,6 @@ class ClientesController implements Controller {
   @override
   Map<String, Handler> get handlers => {
     'GET': GetClientesHandler(getClientesUseCase: getClientesUseCase),
-    'GET /{clienteId}': GetClientesByIdHandler(),
+    //'GET /{clienteId}': GetClientesByIdHandler(),
   };
 }

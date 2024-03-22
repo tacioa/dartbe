@@ -1,7 +1,7 @@
 import 'package:api_client/app/api/api.dart';
 import 'package:test/test.dart';
 
-import '../../mock.dart';
+import '../../../../mock.dart';
 
 /// Controllers
 ///
@@ -35,10 +35,10 @@ void main() {
       expect(controller.handlers['GET'], isA<GetClientesHandler>());
     });
 
-    test('deve conter uma key "GET" para o handler getClientesByIdHandler',
+    /*test('deve conter uma key "GET" para o handler getClientesByIdHandler',
         () async {
       expect(controller.handlers['GET /{clienteId}'],
           isA<GetClientesByIdHandler>());
-    });
+    });*/
   });
 }

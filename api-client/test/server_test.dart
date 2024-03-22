@@ -20,20 +20,11 @@ void main() {
 
   tearDown(() => p.kill());
 
-  test('Root', () async {
-    final response = await get(Uri.parse('$host/'));
+group('Api Clientes:', () {
+    test('deve conter um content-type "application/json"', () async {
+    final response = await get(Uri.parse('$host/clientes'));
     expect(response.statusCode, 200);
-    expect(response.body, 'Hello, World!\n');
+    expect(response.headers['content-type'], 'application/json');
   });
-
-  test('Echo', () async {
-    final response = await get(Uri.parse('$host/echo/hello'));
-    expect(response.statusCode, 200);
-    expect(response.body, 'hello\n');
-  });
-
-  test('404', () async {
-    final response = await get(Uri.parse('$host/foobar'));
-    expect(response.statusCode, 404);
-  });
+})
 }

@@ -8,7 +8,7 @@
             "name": "api-client",
             "request": "launch",
             "type": "dart",
-            "program": "bin/server/server.dart"
+            "program": "bin/server.dart"
         }
     ]
 }

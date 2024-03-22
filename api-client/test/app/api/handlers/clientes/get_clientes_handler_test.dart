@@ -1,9 +1,8 @@
 import 'package:api_client/app/api/api.dart';
-import 'package:api_client/app/domain/domain.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-import '../../mock.dart';
+import '../../../../mock.dart';
 
 void main() {
   late GetClientesHandler handler;
@@ -31,25 +30,28 @@ void main() {
 
     test('Deve retornar uma lista de ClienteOutputDTO', () async {
       when(() => mockGetClientesUseCase.call()).thenAnswer((_) async => [
-            Cliente(id: 1, nome: 'nome', email: 'email', telefone: 'telefone'),
+            clienteMock,
           ]);
       final result = await handler.call();
 
       expect(result.body, isA<List<ClienteOutputDTO>>());
     });
 
-    test('Deve retornar um status internalServerError quando um erro desconhecido acontecer', () async {
+    test(
+        'Deve retornar um status internalServerError quando um erro desconhecido acontecer',
+        () async {
       when(() => mockGetClientesUseCase.call()).thenThrow(Exception());
       final result = await handler.call();
 
       expect(result.status, StatusHandler.internalServerError);
     });
 
-
-  test('Deve retornar um status internalServerError quando um erro desconhecido acontecer', () async {
-    final result = ClienteOutputDTO.toCollectionDTO(
-        [Cliente(id: 1, nome: 'nome', email: 'email', telefone: 'telefone')]);
-    expect(result, isA<List<ClienteOutputDTO>>());
-  });
+    test(
+        'Deve retornar um status internalServerError quando um erro desconhecido acontecer',
+        () async {
+      final result = ClienteOutputDTO.toCollectionDTO(
+          [clienteMock]);
+      expect(result, isA<List<ClienteOutputDTO>>());
+    });
   });
 }

@@ -1,11 +1,12 @@
 import 'package:api_client/app/api/api.dart';
-import 'package:api_client/app/domain/domain.dart';
 import 'package:test/test.dart';
+
+import '../../../mock.dart';
 
 void main() {
   test('Deve retornar uma lista de ClienteOutputDTO', () async {
     final result = ClienteOutputDTO.toCollectionDTO(
-        [Cliente(id: 1, nome: 'nome', email: 'email', telefone: 'telefone')]);
+        [clienteMock]);
     expect(result, isA<List<ClienteOutputDTO>>());
   });
 }
