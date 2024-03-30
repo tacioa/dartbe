@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:api_client/app/api/api.dart';
 import 'package:api_client/server/server.dart';
 import 'package:shelf/shelf.dart';
@@ -14,23 +17,33 @@ class ShelfAdapter {
     }
   }
 
-  void _handler(Controller controller, Router router){
+  void _handler(Controller controller, Router router) {
     final route = controller.route;
     final handlers = controller.handlers;
 
     for (final myHandler in handlers.entries) {
       final verb = myHandler.key;
       router.add(verb, route, (Request request) async {
-        final responseHandler = await myHandler.value();
+        print(SystemEncoding().toString());
+        final String payloadSysEnconde =
+            await request.readAsString(SystemEncoding());
+        final String payload = utf8.decode(payloadSysEnconde.codeUnits);
+
+        final responseHandler = await myHandler.value(RequestParams(
+          body: payload.isNotEmpty ? jsonDecode(payload) : null,
+        ));
 
         switch (responseHandler.status) {
           case StatusHandler.ok:
             return ResponseJSON.ok(responseHandler.body);
+          case StatusHandler.created:
+            return ResponseJSON.created(responseHandler.body);
+          case StatusHandler.badRequest:
+            return ResponseJSON.badRequest(responseHandler.body);
           default:
-          return Response.internalServerError();
+            return Response.internalServerError();
         }
       });
     }
   }
-
 }

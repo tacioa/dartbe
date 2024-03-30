@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import '../../../../mock.dart';
 
 void main() {
-  late Connection connection;
+  late DBConnection connection;
   late GetClientesDao dao;
 
   setUpAll(() {

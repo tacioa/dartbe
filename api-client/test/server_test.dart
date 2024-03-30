@@ -26,7 +26,7 @@ void main() {
     test('deve conter um content-type "application/json"', () async {
       final response = await get(Uri.parse('$host/clientes'));
       expect(response.statusCode, 200);
-      //expect(response.headers['content-type'], 'application/json');
+      expect(response.headers['content-type'], 'application/json');
     });
   });
 }

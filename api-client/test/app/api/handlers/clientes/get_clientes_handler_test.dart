@@ -16,14 +16,14 @@ void main() {
   group("GetClienteHandler", () {
     test('Deve retornar uma instancia de  ResponseHandler', () async {
       when(() => mockGetClientesUseCase.call()).thenAnswer((_) async => []);
-      final result = await handler.call();
+      final result = await handler.call(RequestParams());
 
       expect(result, isA<ResponseHandler>());
     });
 
     test('Deve retornar um Status OK', () async {
       when(() => mockGetClientesUseCase.call()).thenAnswer((_) async => []);
-      final result = await handler.call();
+      final result = await handler.call(RequestParams());
 
       expect(result.status, StatusHandler.ok);
     });
@@ -32,7 +32,7 @@ void main() {
       when(() => mockGetClientesUseCase.call()).thenAnswer((_) async => [
             clienteMock,
           ]);
-      final result = await handler.call();
+      final result = await handler.call(RequestParams());
 
       expect(result.body, isA<List<ClienteOutputDTO>>());
     });
@@ -41,7 +41,7 @@ void main() {
         'Deve retornar um status internalServerError quando um erro desconhecido acontecer',
         () async {
       when(() => mockGetClientesUseCase.call()).thenThrow(Exception());
-      final result = await handler.call();
+      final result = await handler.call(RequestParams());
 
       expect(result.status, StatusHandler.internalServerError);
     });
@@ -49,8 +49,7 @@ void main() {
     test(
         'Deve retornar um status internalServerError quando um erro desconhecido acontecer',
         () async {
-      final result = ClienteOutputDTO.toCollectionDTO(
-          [clienteMock]);
+      final result = ClienteOutputDTO.toCollectionDTO([clienteMock]);
       expect(result, isA<List<ClienteOutputDTO>>());
     });
   });

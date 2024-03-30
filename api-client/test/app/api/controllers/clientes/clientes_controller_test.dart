@@ -17,11 +17,14 @@ import '../../../../mock.dart';
 void main() {
   late ClientesController controller;
   late MockGetClientesUseCase mockGetClientesUseCase;
+  late MockAddClienteUseCase mockAddClienteUseCase;
 
   setUpAll(() {
     mockGetClientesUseCase = MockGetClientesUseCase();
+    mockAddClienteUseCase = MockAddClienteUseCase();
     controller = ClientesController(
       getClientesUseCase: mockGetClientesUseCase,
+      addClienteUserCase: mockAddClienteUseCase,
     );
   });
 
@@ -35,10 +38,9 @@ void main() {
       expect(controller.handlers['GET'], isA<GetClientesHandler>());
     });
 
-    /*test('deve conter uma key "GET" para o handler getClientesByIdHandler',
+    test('deve conter uma key "POST" para o handler AddClienteHandler',
         () async {
-      expect(controller.handlers['GET /{clienteId}'],
-          isA<GetClientesByIdHandler>());
-    });*/
+      expect(controller.handlers['POST'], isA<AddClienteHandler>());
+    });
   });
 }

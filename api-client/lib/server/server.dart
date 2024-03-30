@@ -19,8 +19,10 @@ class Server {
     ShelfAdapter(controllers: controllers).handler(router);
 
     // Configure a pipeline that logs requests.
-    final handler =
-        Pipeline().addMiddleware(logRequests()).addMiddleware(contentJSON()).addHandler(router.call);
+    final handler = Pipeline()
+        .addMiddleware(logRequests())
+        .addMiddleware(contentJSON())
+        .addHandler(router.call);
 
     // For running in containers, we respect the PORT environment variable.
     final port = int.parse(Platform.environment['PORT'] ?? '8080');
